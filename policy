@@ -1,0 +1,17 @@
+opa eval \
+  --data policy.rego \
+  --format=raw \
+  'data.policy.allow'
+  
+  opa eval \
+  --data=policy.rego \
+  --format=raw \
+  --input=policy.json \
+  'data.policy.allow'
+
+opa test .
+
+opa run --server . 
+
+curl http://127.0.0.1:8181/v1/data/policy/allow \
+-d '{"input":{"user":{"roles":["admin"]}}}'
